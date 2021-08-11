@@ -56,7 +56,8 @@ export const init = () => {
             name TEXT NOT NULL,
             lat TEXT NOT NULL,
             lng TEXT NOT NULL,
-            user_id TEXT NOT NULL
+            user_id TEXT NOT NULL,
+            entrydate TEXT NOT NULL
           )`,
         [],
         () => { resolve() },
@@ -74,8 +75,8 @@ export const db_insertPlace = (
   const promise = new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
-        `INSERT INTO places (firebaseId, name, lat, lng,  user_id) VALUES (?, ?, ?, ?, ?)`,
-        [place.firebaseId, place.name, place.lat, place.lng,  user_id],
+        `INSERT INTO places (firebaseId, name, lat, lng, entrydate, user_id) VALUES (?, ?, ?, ?, ?, ?)`,
+        [place.firebaseId, place.name, place.lat, place.lng, place.date, user_id],
         (_, result) => resolve(result),
         (_, err) => reject(err),
       );

@@ -2,14 +2,20 @@ import React, { useLayoutEffect, useEffect } from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import LocationsItem from '../components/LocationsItem';
+
 import { getPlaces } from '../store/actions/placesAction';
+
+import { placeStyles, mainCard } from '../constants/styles';
 
 import CustomHeaderButton from '../components/HeaderButton' 
 
 export default Locations = ({ navigation }) => {
     const dispatch = useDispatch();
     const places = useSelector(state => state.places.list);
+
+    const handleOpenMap = (locationData) =>{
+
+    }
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -29,18 +35,23 @@ export default Locations = ({ navigation }) => {
         dispatch(getPlaces());
     }, []);
 
-    const renderItem = data => (
-        <LocationsItem
-            title={data.item.title}
-            onSelect={() => navigation.push('Detalle')}
-        />
-    )
-
     return (
         <FlatList
             data={places}
             keyExtractor={item => item.id}
-            renderItem={renderItem}
+            renderItem={data => {
+                return (
+                    <View style={mainCard.card}>
+                        <TouchableOpacity onPress={handleOpenMap.bind(this, data.item)}>
+                            <View style={mainCard.column}>
+                                <Text style={mainCard.title}>{data.item.name}</Text>
+                                <Text style={mainCard.title}>{data.item.date}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                )
+            }}
+            keyExtractor={item => item.id.toString()}
         />
     )
 }
