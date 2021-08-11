@@ -57,7 +57,7 @@ const TabNavigator = () => {
             options={{
             tabBarIcon: ({ focused }) => (
                 <View style={NavigatorStyles.item}>
-                <FontAwesome5 name="concierge-bell" color={focused ? NavigatorStyles.focus.color : 'black'} size={24} />
+                <FontAwesome5 name="location-arrow" color={focused ? NavigatorStyles.focus.color : 'black'} size={24} />
                 <Text>Paseos</Text>
                 </View>
             )

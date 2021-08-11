@@ -6,8 +6,7 @@ export const init = () => {
   const promise = new Promise((resolve, reject) => {
     // db.transaction(tx => {
     //     tx.executeSql(
-    //       `DROP TABLE IF EXISTS pets;
-    //       DROP TABLE IF EXISTS treatments;`,
+    //       `DROP TABLE IF EXISTS places;`,
     //       [],
     //       () => { resolve() },
     //       (_, err) => { reject(err) },
@@ -54,10 +53,10 @@ export const init = () => {
             id INTEGER PRIMARY KEY NOT NULL,
             firebaseId TEXT NOT NULL,
             name TEXT NOT NULL,
-            lat TEXT NOT NULL,
-            lng TEXT NOT NULL,
+            lat REAL NOT NULL,
+            lng REAL NOT NULL,
             user_id TEXT NOT NULL,
-            entrydate TEXT NOT NULL
+            date TEXT NOT NULL
           )`,
         [],
         () => { resolve() },
@@ -75,7 +74,7 @@ export const db_insertPlace = (
   const promise = new Promise((resolve, reject) => {
     db.transaction(tx => {
       tx.executeSql(
-        `INSERT INTO places (firebaseId, name, lat, lng, entrydate, user_id) VALUES (?, ?, ?, ?, ?, ?)`,
+        `INSERT INTO places (firebaseId, name, lat, lng, date, user_id) VALUES (?, ?, ?, ?, ?, ?)`,
         [place.firebaseId, place.name, place.lat, place.lng, place.date, user_id],
         (_, result) => resolve(result),
         (_, err) => reject(err),

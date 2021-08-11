@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Image, StyleSheet } from 'react-native';
 import { MAP_API } from '../constants/database';
 
+import { placeStyles } from '../constants/styles';
+
 const MapPreview = ({ location, style, children }) => {
   const loc = location || {}
   const mapPreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?
@@ -12,25 +14,15 @@ const MapPreview = ({ location, style, children }) => {
       &markers=color:blue%7Clabel:S%7C${loc.lat},${loc.lng}
       &key=${MAP_API}`;
 
+
   return (
-    <View style={{ ...styles.mapPreview, ...style }}>
+    <View style={{ ...placeStyles.mapPreviewInner, ...style }}>
       {location
-        ? <Image style={styles.mapImage} source={{ uri: mapPreviewUrl }} />
+        ? <Image style={placeStyles.mapImage} source={{ uri: mapPreviewUrl }} />
         : children
       }
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  mapPreview: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  mapImage: { 
-    width: '100%',
-    height: '100%',
-  }
-});
 
 export default MapPreview;

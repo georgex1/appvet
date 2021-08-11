@@ -45,8 +45,8 @@ const LocationPicker = ({ navigation, onChangeLocation }) => {
       const location = await Location.getCurrentPositionAsync({
         timeout: 5000,
       });
-      console.log('location:');
-      console.log(location);
+      // console.log('location:');
+      // console.log(location);
       setPickedLocation({
         lat: location.coords.latitude,
         lng: location.coords.longitude,
@@ -73,7 +73,7 @@ const LocationPicker = ({ navigation, onChangeLocation }) => {
       </MapPreview>
       <View style={placeStyles.actions}>
         <Button
-          title="Obtener Ubicación"
+          title="Actualizar Ubicación"
           color={placeStyles.button.color}
           onPress={getLocationHandler}
         />

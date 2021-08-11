@@ -5,7 +5,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {addPlace} from '../store/actions/placesAction';
 import LocationPicker from '../components/LocationPicker';
 
-import { placeStyles } from '../constants/styles';
+import { placeStyles, FormStyles } from '../constants/styles';
 
 export default AddLocation = ({ navigation }) => {
     const dispatch = useDispatch();
@@ -21,8 +21,19 @@ export default AddLocation = ({ navigation }) => {
     }
 
     const onHandlerSave = () => {
+        if(title == ""){
+            Alert.alert(
+                "Error",
+                "Debes agregar un nombre al paseo",
+                [
+                    { text: "Aceptar", onPress: () => {}}
+                ]
+            );
+            return 
+        }
 
         let placeInfo = {name: title, location: {lat: location.lat,lng: location.lng} }
+        
 
         dispatch(addPlace(placeInfo, user.id));
         
@@ -39,25 +50,22 @@ export default AddLocation = ({ navigation }) => {
 
     return (
         <ScrollView>
-            <View style={placeStyles.container}>
-                <Text style={placeStyles.label}>Titulo</Text>
                 
                 <TextInput
-                    style={placeStyles.input}
+                    style={FormStyles.input}
                     onChangeText={onHandlerTitle}
                     value={title}
+                    placeholder="Nombre"
                 />
 
                 <LocationPicker navigation={navigation} onChangeLocation={onChangeLocation} />
-                
-                <View style={placeStyles.footer}>
-                    <Button
-                        title="Grabar Dirección"
-                        color={placeStyles.button.color}
-                        onPress={onHandlerSave}
-                    />
+
+                <View style={FormStyles.bottonsContainer}>
+                    <Button title="Cancelar" color={FormStyles.button.color} onPress={() => navigation.goBack()} />
+                    <Button title="Agregar" color={FormStyles.button.color} onPress={onHandlerSave} />
                 </View>
-            </View>
+                
+            
         </ScrollView>
     )
 }

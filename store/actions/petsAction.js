@@ -18,7 +18,6 @@ export const getPets = (user) => {
     return async dispatch => {
       try {
           const result = await db_getPets(user);
-          // console.log(result);
 
           dispatch({ type: GET_PETS, items: result.rows?._array });
       } catch (error) {

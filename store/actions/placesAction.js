@@ -11,7 +11,6 @@ export const getPlaces = (user) => {
     return async dispatch => {
       try {
           const result = await db_getPlaces(user);
-          // console.log(result);
 
           dispatch({ type: GET_PLACES, items: result.rows?._array });
       } catch (error) {
@@ -41,7 +40,7 @@ export const addPlace = (placeInfo, user) => {
         try {
 
             let placeInfoS = {
-                date: Date.now(),
+                date: new Date( Date.now()).toLocaleDateString(),
                 name: placeInfo.name,
                 lat: placeInfo.location.lat,
                 lng: placeInfo.location.lng

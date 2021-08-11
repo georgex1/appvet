@@ -156,7 +156,7 @@ export const FormStyles = StyleSheet.create({
       borderRadius: 2,
       borderWidth: 1,
       padding: 10,
-      width: '90%',
+      width: '95%',
       margin: 10
   },
   error:{
@@ -225,7 +225,7 @@ export const ImageSelectorStyles = StyleSheet.create({
 
 export const placeStyles = StyleSheet.create({
   locationPicker: {
-    marginVertical: 15,
+    margin: 15,
   },
   mapPreview: {
     borderWidth: 1,
@@ -242,41 +242,36 @@ export const placeStyles = StyleSheet.create({
   button:{
     color: '#082D0F'
   },
-  placeItem: {
-    borderBottomColor: '#ccc',
-    borderBottomWidth: 1,
-    paddingVertical: 16,
-    paddingHorizontal: 30,
-    flexDirection: 'row',
+  mapPreviewInner: {
+    justifyContent: 'center',
     alignItems: 'center',
   },
-  info: {
-    marginLeft: 25,
-    width: 250,
+  mapImage: { 
+    width: '100%',
+    height: '100%',
+  }
+})
+
+export const modalStyles = StyleSheet.create({
+  modalOverviewStyle: {
+    alignItems: 'center',
     justifyContent: 'center',
-    alignItems: 'flex-start',
+    flex: 1,
+    backgroundColor: 'black',
   },
-  title: {
-    color: 'black',
-    fontSize: 18,
-    marginBottom: 6,
+  modalStyle: {
+      width: '80%',
+      paddingHorizontal: 10,
+      paddingVertical: 40,
+      alignItems: 'center',
+      backgroundColor: 'white',
+      borderColor: 'black',
+      borderRadius: 10,
+      borderWidth: 1,
+      backgroundColor: '#f7f9fe'
   },
-  container: {
-      flex: 1,
-      margin: 30,
-  },
-  label: {
-      fontSize: 18,
-      marginBottom: 16,
-  },
-  input: {
-      borderBottomColor: '#ccc',
-      borderBottomWidth: 1,
-      marginBottom: 16,
-      paddingHorizontal: 2,
-      paddingVertical: 4,
-  },
-  footer: {
-      marginTop: 30,
+  title:{
+    marginBottom: 20,
+    fontFamily: 'FiraSans-Bold'
   }
 })
