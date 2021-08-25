@@ -2,22 +2,32 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, Button, Alert, Keyboard, TouchableOpacity } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import {FormStyles} from '../constants/styles';
+import {FormStyles, TreatmentsStyles} from '../constants/styles';
+
 
 import {useDispatch, useSelector} from 'react-redux';
 import { addTreatment } from '../store/actions/treatmentsAction';
+
+import ModalAddMedication from '../components/ModalAddMedication';
+
+import ListMedications from '../components/ListMedications';
 
 export default AddTreatment = ({ navigation }) => {
 
     const [showDatePiker, setshowDatePiker] = useState(false);
     const [date, setDate] = useState(new Date());
 
+    const [actualMedicationId, setactualMedicationId] = useState(1);
+    const [medicationList, setmedicationList] = useState([]);
+
     const dispatch = useDispatch();
 
     const actualPet = useSelector(state => state.pets.selected);
+    const user = useSelector(state => state.auth.user);
 
     const [treatmentNameInput, settreatmentNameInput] = useState('');
-    const [errorVisible, setErrorVisible] = useState(false);
+
+    const [modalVisible, setModalVisible] = useState(false);
 
     const showDatepicker = () => {
         setshowDatePiker(true)
@@ -30,22 +40,26 @@ export default AddTreatment = ({ navigation }) => {
     };
 
     const validateField = () => {
-        if(treatmentNameInput != '' ){
+        if(treatmentNameInput != '' && medicationList.length > 0){
             handleItem();
         }else{
-            setErrorVisible(true);
-            setTimeout(() => {
-                setErrorVisible(false);
-            }, 2000);
+            Alert.alert(
+                "Error",
+                "Verifica el nombre del tratamiento y que contenga al menos un medicamento",
+                [
+                    { text: "Aceptar"}
+                ]
+            );
         }
     }
 
     const handleItem = () => {
 
         let treatmentInfo = {pet_id: actualPet.id, treatmentName: treatmentNameInput, startDate: date.toLocaleDateString('am-ET')}
-        dispatch(addTreatment(treatmentInfo));
+        dispatch(addTreatment(treatmentInfo, medicationList, user.id));
 
         settreatmentNameInput('');
+        setmedicationList([]);
 
         Keyboard.dismiss();
     
@@ -67,21 +81,45 @@ export default AddTreatment = ({ navigation }) => {
         navigation.navigate('Treatments')
     }
 
+
+    const handleMedicationItem = (item) => {
+
+        setactualMedicationId(actualMedicationId+1)
+        setmedicationList([...medicationList, {id: actualMedicationId, value: item} ])
+
+        setModalVisible(false);
+    
+    }
+
+    const handleDeleteMedication = (id) => {
+        setmedicationList(medicationList.filter(x => x.id !== id));
+    }
+
     return (
         <View style={FormStyles.container}>
             <View >
                 
                 <TextInput placeholder="Nombre Tratamiento" style={FormStyles.input} onChangeText={text => settreatmentNameInput(text) } value={treatmentNameInput} />
-
-                
                 
                 <TouchableOpacity style={FormStyles.input} onPress={showDatepicker}>
                     <Text style={FormStyles.inputText}>{date.toLocaleDateString('am-ET')}</Text>
                 </TouchableOpacity>
                 
+
+                <View style={TreatmentsStyles.listContainer}>
+                <Text style={TreatmentsStyles.title}>Medicamentos</Text>
+
+                <Button title="Agregar Medicamento" color={FormStyles.button.color} onPress={() => {setModalVisible(true)}} />
+
                 
-                {errorVisible && <Text style={FormStyles.error}>Verifica el nombre y la fecha de inicio del tratamiento. </Text> }
+
                 
+                {medicationList.length > 0 && 
+                    <ListMedications medicationList={medicationList} handleDeleteMedication={handleDeleteMedication} />
+                    
+                }
+                
+                </View>
 
                 <View style={FormStyles.bottonsContainer}>
                     <Button title="Cancelar" color={FormStyles.button.color} onPress={() => handleCancel(false)} />
@@ -99,6 +137,8 @@ export default AddTreatment = ({ navigation }) => {
                 onChange={onChangeDate}
                 />
             )}
+
+            <ModalAddMedication modalVisible={modalVisible} setModalAddVisible={setModalVisible} handleItem={handleMedicationItem} />
         </View>
     )
 }

@@ -6,7 +6,7 @@ export const init = () => {
   const promise = new Promise((resolve, reject) => {
     // db.transaction(tx => {
     //     tx.executeSql(
-    //       `DROP TABLE IF EXISTS places;`,
+    //       `DROP TABLE IF EXISTS treatments;`,
     //       [],
     //       () => { resolve() },
     //       (_, err) => { reject(err) },
@@ -38,7 +38,8 @@ export const init = () => {
               firebaseId TEXT NOT NULL,
               name TEXT NOT NULL,
               pet_id TEXT NOT NULL,
-              startDate TEXT NOT NULL
+              startDate TEXT NOT NULL,
+              medications TEXT NOT NULL
             )`,
           [],
           () => { resolve() },
@@ -154,8 +155,8 @@ export const db_insertTreatment = (
     const promise = new Promise((resolve, reject) => {
       db.transaction(tx => {
         tx.executeSql(
-          `INSERT INTO treatments (firebaseId, name, pet_id, startDate) VALUES (?, ?, ?, ?)`,
-          [treatment.firebaseId, treatment.name, treatment.pet_id, treatment.startDate ],
+          `INSERT INTO treatments (firebaseId, name, pet_id, startDate, medications) VALUES (?, ?, ?, ?, ?)`,
+          [treatment.firebaseId, treatment.name, treatment.pet_id, treatment.startDate, treatment.medications ],
           (_, result) => resolve(result),
           (_, err) => reject(err),
         );
@@ -184,7 +185,7 @@ export const db_deleteTreatment = (treatment_id) => {
     const promise = new Promise((resolve, reject) => {
       db.transaction(tx => {
         tx.executeSql(
-          `DELETE FROM treatments id = ?;`,
+          `DELETE FROM treatments where id = ?;`,
           [treatment_id],
           (_, result) => resolve(result),
           (_, err) => reject(err),
@@ -193,4 +194,19 @@ export const db_deleteTreatment = (treatment_id) => {
     });
   
     return promise;
+}
+
+export const db_deletePetTreatments = (pet_id) => {
+  const promise = new Promise((resolve, reject) => {
+    db.transaction(tx => {
+      tx.executeSql(
+        `DELETE FROM treatments where pet_id = ?;`,
+        [pet_id],
+        (_, result) => resolve(result),
+        (_, err) => reject(err),
+      );
+    });
+  });
+
+  return promise;
 }

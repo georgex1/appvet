@@ -14,6 +14,29 @@ export const loginStyles = StyleSheet.create({
   }
 });
 
+export const inputStyles = StyleSheet.create({
+  formControl: {
+    width: '100%',
+  },
+  label: {
+    fontFamily: 'open-sans-bold',
+    marginVertical: 8,
+  },
+  input: {
+    paddingHorizontal: 2,
+    paddingVertical: 5,
+    borderBottomColor: '#ccc',
+    borderBottomWidth: 1,
+  },
+  errorContainer: {
+    marginTop: 6,
+    marginBottom: 8,
+  },
+  errorText: {
+    color: "#ff0000",
+  }
+});
+
 export const mainCard = StyleSheet.create({
   card: {
     backgroundColor: '#17B890',
@@ -21,7 +44,12 @@ export const mainCard = StyleSheet.create({
     borderRadius: 10,
     flexDirection: 'row',
     marginVertical: 5,
-    padding: 5
+    padding: 5,
+    justifyContent: "space-between"
+  },
+  cardInner: {
+    flexDirection: 'row',
+    justifyContent: "space-between"
   },
   image: {
     width: 80,
@@ -33,6 +61,9 @@ export const mainCard = StyleSheet.create({
   },
   column: {
     
+  },
+  green:{
+    color: '#082D0F'
   }
 });
 
@@ -40,8 +71,8 @@ export const listPetsStyles = StyleSheet.create({
     listStyle: {
     },
     listInner: {
-      marginBottom: 10
-    }
+      marginBottom: 10,
+    },
 });
 
 export const buttonStyle = StyleSheet.create({
@@ -66,6 +97,10 @@ export const buttonStyle = StyleSheet.create({
 })
 
 export const TreatmentsStyles = StyleSheet.create({
+  listContainer: {
+    width: '90%',
+    alignSelf: 'center'
+  },
   listStyle: {
     backgroundColor: '#17B890',
     borderWidth: 1,
@@ -73,9 +108,16 @@ export const TreatmentsStyles = StyleSheet.create({
     marginVertical: 5,
     padding: 5
   },
+  listHeight:{
+    height: '70%'
+  },
   itemList: {
     width: '100%',
-    marginBottom: 15
+    marginBottom: 15,
+  },
+  itemListInner: {
+    flexDirection: 'row',
+    justifyContent: "space-between"
   },
   screen: {
     
@@ -110,6 +152,9 @@ export const TreatmentsStyles = StyleSheet.create({
   },
   medItemText: {
     color: '#DEE5E5'
+  },
+  green:{
+    color: '#082D0F'
   }
 });
 
@@ -158,6 +203,14 @@ export const FormStyles = StyleSheet.create({
       padding: 10,
       width: '95%',
       margin: 10
+  },link: {
+    borderColor: 'black',
+    borderBottomWidth: 1,
+    width: '80%',
+    marginTop: 60,
+    textAlign: 'center',
+    alignItems: 'center',
+    alignSelf: 'center'
   },
   error:{
       fontSize: 11,
@@ -273,5 +326,33 @@ export const modalStyles = StyleSheet.create({
   title:{
     marginBottom: 20,
     fontFamily: 'FiraSans-Bold'
-  }
+  },
+  modalError: {
+    fontSize: 11,
+    color: 'red',
+    textAlign: 'center'
+  },
+  modalInputText: {
+    borderColor: 'black',
+    borderRadius: 2,
+    borderWidth: 1,
+    padding: 10,
+    width: '90%',
+    margin: 10
+  },
+  modalTitle:{
+      fontSize: 20,
+      marginBottom: 10,
+      textAlign: 'center'
+  },
+  centerText:{
+    marginBottom: 10,
+    textAlign: 'center'
+  },
+  bottonsContainer: {
+    width: '80%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: 30,
+  },
 })

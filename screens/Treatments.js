@@ -1,12 +1,16 @@
 import React, { useEffect, useLayoutEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
 import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import {TreatmentsStyles, buttonStyle} from '../constants/styles';
 import MainCard from '../components/MainCard';
 
-import { filterTreatments } from '../store/actions/treatmentsAction';
+import { FontAwesome5 } from '@expo/vector-icons';
+
+import { filterTreatments, deleteTreatment, selectTreatment } from '../store/actions/treatmentsAction';
+
+import ListMedications from '../components/ListMedications';
 
 import CustomHeaderButton from '../components/HeaderButton' 
 
@@ -17,6 +21,7 @@ export default Treatments = ( {navigation, route} ) => {
     //const listTreatmentsDb = require('../data/Treatments.json');
     const listTreatmentsArray = useSelector(state => state.treatments.filteredTreatments);
     const ActualPet = useSelector(state => state.pets.selected);
+    const user = useSelector(state => state.auth.user);
 
     //const listTreatmentsArray = listTreatmentsDb.filter(item => item.pet_id === route.params.pet.id);
     useLayoutEffect(() => {
@@ -38,6 +43,31 @@ export default Treatments = ( {navigation, route} ) => {
         dispatch(filterTreatments(ActualPet.id));
     }, []);
 
+
+
+
+    const connfirmDeleteTreatment = (item) => {
+        dispatch(deleteTreatment(item.id, item.firebaseId, user.id));
+    }
+
+    const handleDeleteTreatment = (item) => {
+        
+        Alert.alert(
+            "Borrar Tratamiento",
+            "Esta seguro que desea borrar este tratamiento?",
+            [
+                {
+                  text: "Cancelar",
+                  onPress: () => console.log("Cancel Pressed"),
+                  style: "cancel"
+                },
+                { text: "Aceptar", onPress: () => connfirmDeleteTreatment(item) }
+            ]
+        );
+        
+    }
+
+
     return (
         <InnerApp >
             
@@ -49,13 +79,34 @@ export default Treatments = ( {navigation, route} ) => {
                 <Text style={TreatmentsStyles.title}>Tratamientos</Text>
 
                 <FlatList 
-                    style={TreatmentsStyles.listStyle}
+                    style={[TreatmentsStyles.listStyle, TreatmentsStyles.listHeight]}
                     data={listTreatmentsArray}
                     renderItem={data => {
+                        const medicationList = JSON.parse(data.item.medications)
                         return (
                             <View style={TreatmentsStyles.itemList}>
-                                <Text style={TreatmentsStyles.title2}>{data.item.name}</Text>
-                                <Text>Fecha Inicio: {data.item.startDate}</Text>
+                                <View style={TreatmentsStyles.itemListInner}>
+                                    <View>
+                                        <Text style={TreatmentsStyles.title2}>{data.item.name}</Text>
+                                        <Text>Fecha Inicio: {data.item.startDate}</Text>
+                                    </View>
+
+                                    <View>
+                                        
+                                    
+                                        <TouchableOpacity  onPress={handleDeleteTreatment.bind(this, data.item)}>
+                                            <FontAwesome5 name="times-circle" size={24} color={TreatmentsStyles.green.color} />
+                                        </TouchableOpacity>
+
+
+                                    </View>
+                                </View>
+
+                                <Text style={TreatmentsStyles.title3}>Medicación</Text>
+                                {medicationList.length > 0 && 
+                                    <ListMedications medicationList={medicationList} />
+                                }
+                                
                                 
                                 {/* <Text style={TreatmentsStyles.title3}>Medicación</Text>
 
@@ -83,6 +134,9 @@ export default Treatments = ( {navigation, route} ) => {
                     }}
                     keyExtractor={item => item.id.toString()}
                 />
+
+
+                
 
             </View>
         </InnerApp>

@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useEffect, useState } from 'react'
 import { View, Text, FlatList, TouchableOpacity, Modal, Button } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
+import * as Linking from 'expo-linking';
 
 import InnerApp from '../components/InnerApp';
 import MapPreview from '../components/MapPreview'
@@ -42,6 +43,11 @@ export default Locations = ({ navigation }) => {
         dispatch(getPlaces(user.id));
     }, []);
 
+    const goToGoogleMaps = () => {
+        const link_ = `https://www.google.com/maps/search/?api=1&query=${locationData.lat},${locationData.lng}`;
+        Linking.openURL(link_);
+    }
+
     return (
         <InnerApp >
             <FlatList
@@ -68,13 +74,16 @@ export default Locations = ({ navigation }) => {
                     <View style={modalStyles.modalStyle}>
                         
                         <Text style={modalStyles.title}>{locationData?.name} | {locationData?.date}</Text>
+                        <Text style={modalStyles.centerText}>Haz click sobre el mapa para abrir google maps</Text>
 
-                        <MapPreview style={placeStyles.mapPreview} location={locationData}>
-                            {/* {isFetching
-                            ? <ActivityIndicator size="large" color={placeStyles.button.color} />
-                            : <Text>En proceso...</Text>
-                            } */}
-                        </MapPreview>
+                        <TouchableOpacity  onPress={goToGoogleMaps} style={placeStyles.mapPreview}>
+                            <MapPreview style={placeStyles.mapPreview} location={locationData}>
+                                {/* {isFetching
+                                ? <ActivityIndicator size="large" color={placeStyles.button.color} />
+                                : <Text>En proceso...</Text>
+                                } */}
+                            </MapPreview>
+                        </TouchableOpacity>
 
                         
                         <Button title="Cerrar" color={FormStyles.button.color} onPress={() => setmodaVisible(false)} />

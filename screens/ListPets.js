@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import MainCard from '../components/MainCard';
-import { listPetsStyles, buttonStyle } from '../constants/styles';
+import { listPetsStyles } from '../constants/styles';
 import InnerApp from '../components/InnerApp';
 
 import { getPets, selectPet, deletePet } from '../store/actions/petsAction';
@@ -75,9 +75,11 @@ export default ListPets = ({ navigation }) => {
                     return (
                         <View style={listPetsStyles.listInner}>
                             <TouchableOpacity onPress={handleChoosePet.bind(this, data.item)}>
-                                <MainCard data={data.item} />
+                                <MainCard data={data.item} handleDelete={handleDeletePet} />
                             </TouchableOpacity>
-                            <Button title="Borrar" color={buttonStyle.buttonDelete.color} onPress={handleDeletePet.bind(this, data.item)}></Button>
+
+                            
+                            {/* <Button title="Borrar" color={buttonStyle.buttonDelete.color} onPress={handleDeletePet.bind(this, data.item)}></Button> */}
                         </View>
                     )
                 }}

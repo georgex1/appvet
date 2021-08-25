@@ -21,12 +21,12 @@ export default Navigator = () => (
 
       <LocationsStack.Screen name="Locations" 
         component={Locations} 
-        options={{title: 'Paseos'}}
+        options={{title: 'Veterinarias'}}
       />
       
       <LocationsStack.Screen name="addLocation" 
         component={AddLocation} 
-        options={{title: 'Agregar Paseo'}}
+        options={{title: 'Agregar Veterinaria'}}
       />
       
 

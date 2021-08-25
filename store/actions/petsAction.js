@@ -2,7 +2,7 @@ import { URL_API } from "../../constants/database";
 import { ObjToArray } from "../../utils/utilsFunctions";
 import * as FileSystem from 'expo-file-system';
 
-import { db_getPets, db_insertPet, db_deletePet } from "../../db";
+import { db_getPets, db_insertPet, db_deletePet, db_deletePetTreatments } from "../../db";
 
 export const SELECT_PET = 'SELECT_PET';
 export const ADD_PET = 'ADD_PET';
@@ -97,6 +97,7 @@ export const deletePet = (id, firebaseId, user) => {
         });
 
         const resultDb = await db_deletePet(id);
+        const resultDb2 = await db_deletePetTreatments(id);
         // console.log(resultDb)
 
 

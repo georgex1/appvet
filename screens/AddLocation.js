@@ -24,7 +24,7 @@ export default AddLocation = ({ navigation }) => {
         if(title == ""){
             Alert.alert(
                 "Error",
-                "Debes agregar un nombre al paseo",
+                "Debes agregar el nombre de la veterinaria",
                 [
                     { text: "Aceptar", onPress: () => {}}
                 ]
@@ -40,8 +40,8 @@ export default AddLocation = ({ navigation }) => {
         Keyboard.dismiss();
     
         Alert.alert(
-            "Paseo Agregado",
-            "Su paseo ha sido agregado correctamente",
+            "Veterinaria Agregada",
+            "La Veterinaria ha sido agregado correctamente",
             [
                 { text: "Aceptar", onPress: () => navigation.goBack() }
             ]

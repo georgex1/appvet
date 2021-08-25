@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text} from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { FontAwesome5 } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 import { NavigatorStyles } from '../constants/styles';
 
@@ -38,7 +38,7 @@ const TabNavigator = () => {
         />
 
 
-        <TabStack.Screen
+        {/* <TabStack.Screen
             name="Notifications"
             component={NotificationsNavigator}
             options={{
@@ -49,7 +49,7 @@ const TabNavigator = () => {
                 </View>
             )
             }}
-        />
+        /> */}
 
         <TabStack.Screen
             name="Locations"
@@ -58,7 +58,7 @@ const TabNavigator = () => {
             tabBarIcon: ({ focused }) => (
                 <View style={NavigatorStyles.item}>
                 <FontAwesome5 name="location-arrow" color={focused ? NavigatorStyles.focus.color : 'black'} size={24} />
-                <Text>Paseos</Text>
+                <Text>Veterinarias</Text>
                 </View>
             )
             }}

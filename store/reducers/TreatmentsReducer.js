@@ -1,4 +1,4 @@
-import { FITER_TREATMENTS, ADD_TREATMENT } from '../actions/treatmentsAction';
+import { FITER_TREATMENTS, ADD_TREATMENT, DELETE_TREATMENT, SELECT_TREATMENT } from '../actions/treatmentsAction';
 
 const INITIAL_STATE = {
     list: null,
@@ -15,12 +15,12 @@ export default TreatmentsReducer = (state = INITIAL_STATE, action) => {
                 filteredTreatments: action.items
             }
 
-        // case SELECT_TREATMENTS:
+        case SELECT_TREATMENT:
 
-        //     return {
-        //         ...state,
-        //         selected: state.list.filter(a=> a.id === action.id )
-        //     }
+            return {
+                ...state,
+                selected: state.filteredTreatments.filter(a=> a.id === action.id )
+            }
 
         case ADD_TREATMENT:
             let newTreatment = action.treatmentInfo
@@ -29,6 +29,12 @@ export default TreatmentsReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 filteredTreatments: state.filteredTreatments.concat(newTreatment)
             }
+        case DELETE_TREATMENT:
+            const updated = state.filteredTreatments.filter(item => item.id !== action.id);
+            return {
+                ...state,
+                filteredTreatments: updated,
+            };
 
         default:
             return { ...state }
