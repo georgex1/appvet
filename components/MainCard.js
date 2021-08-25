@@ -19,6 +19,9 @@ export default MainCard = ({ data, handleDelete }) => {
                 <View >
                     <Text style={mainCard.title}>{data.name}</Text>
                     <Text >Edad: {data.age} años</Text>
+                    {handleDelete && 
+                    <Text style={mainCard.clickTreatments}>Haz click para ver los tratamientos</Text>
+                    }
                     {/* <Text >{data.treatments} tratamiento/s</Text> */}
                 </View>
             </View>

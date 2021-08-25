@@ -6,6 +6,11 @@ export const loginStyles = StyleSheet.create({
       justifyContent: 'center',
       flex: 1
   },
+  content:{
+    alignItems: 'center',
+    alignSelf: "center",
+    width: "100%"
+  },
   box: {
     width: '80%'
   },
@@ -58,6 +63,10 @@ export const mainCard = StyleSheet.create({
   },
   title: {
     fontFamily: 'FiraSans-Bold'
+  },
+  clickTreatments: {
+    fontSize: 10,
+    marginTop: 12
   },
   column: {
     
@@ -190,6 +199,10 @@ export const mainStyles = StyleSheet.create({
       textAlign: 'center',
       textTransform: 'uppercase',
       marginBottom: 20
+    },
+    image: {
+      width: 80,
+      height: 80
     }
 })
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, TextInput, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Button, TextInput, TouchableOpacity, Alert, Image } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import {loginStyles, mainStyles, FormStyles} from '../constants/styles';
@@ -39,7 +39,7 @@ export default Login = () => {
   }
 
   const loginForm = (
-    <View style={loginStyles.screen}>
+    <View style={loginStyles.content}>
         <View style={loginStyles.box}>
             <Text style={mainStyles.title1}>Login</Text>
 
@@ -56,7 +56,7 @@ export default Login = () => {
   )
 
   const registerForm = (
-    <View style={loginStyles.screen}>
+    <View style={loginStyles.content}>
         <View style={loginStyles.box}>
             <Text style={mainStyles.title1}>Registrate</Text>
 
@@ -73,7 +73,10 @@ export default Login = () => {
   )
 
   const showScreen = () => (
-    screenRegister ? registerForm : loginForm
+    <View style={loginStyles.screen}>
+        <Image  source={require('../assets/adaptive-icon.png')} style={mainStyles.image} />
+        {screenRegister ? registerForm : loginForm}
+    </View>
   )
 
   return (

@@ -66,20 +66,3 @@ export const LoginUser = (email, password, type) => {
     dispatch({ type: LOGIN_USER, token: UserData.token, user: UserData.user });
   }
 }
-
-
-// export const GET_USER = "GET_USER";
-// export const LOGIN_USER = "LOGIN_USER";
-
-// export const getUser = () => (
-//     {
-//         type: GET_USER
-//     }
-// )
-
-// export const LoginUser = (id) => (
-//     {
-//         type: LOGIN_USER,
-//         id
-//     }
-// )
